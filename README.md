@@ -11,8 +11,10 @@ https://en.wikipedia.org/wiki/Bloom_filter    https://baike.baidu.com/item/bloom
 目的：解决频繁接收重复数据造成的后台(持久层)压力问题
 
 实现：redis bitMap数据类型、guava murmurHash算法
+
 实现原理：借鉴并重构google guava的bloomFilter实现(ps:guava的实现是基于long，而bdBloomFilter是基于redis bitmap结构)，
 通过murmurhash3函数生成位节点，并加了自己的可配置参数
 
 优点：相较于数据库层面校验速度快得多、节省大量内存、相较于guava的实现BdBloomFilter不会把jvm搞大
+
 缺点：会有误判率(但是控制的好基本不会出现问题)、放入过滤器里的数据不好删除(这意味着 要过滤掉的数据突然不用过滤了，这样的场景我还没有想到)
